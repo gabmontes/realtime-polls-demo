@@ -1,0 +1,9 @@
+{
+  "forin": true,
+  "latedef": "nofunc",
+  "newcap": true,
+  "node": true,
+  "quotmark": "double",
+  "undef": true,
+  "unused": true
+}

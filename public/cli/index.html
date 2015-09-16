@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="socketPollsClient">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <h1>Realtime polls client</h1>
+        <div ng-controller="ConnectionController">
+            <div>
+                Status:
+                <span ng-if="state === 'connected'">Connected</span>
+                <span ng-if="state === 'disconnected'">Disconnected</span>
+            </div>
+            <div ng-if="state === 'connected'">
+                Connected users: {{connectedUsers}}
+            </div>
+        </div>
+        <div ng-controller="PollController">
+            <div ng-if="pollData.question">
+                <h2>{{pollData.question}}</h2>
+                <div ng-repeat="option in pollData.options">
+                    <input type="button" value="{{option.text}}" ng-disabled="pollData.answer !== undefined" ng-click="setAnswer($index)">
+                    <span ng-if="option.count">{{option.count || 0}} votes</span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

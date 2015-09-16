@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="socketPollsGenerator">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <h1>Realtime polls generator</h1>
+        <div ng-controller="ConnectionController">
+            <div>
+                Status:
+                <span ng-if="state === 'connected'">Connected</span>
+                <span ng-if="state === 'disconnected'">Disconnected</span>
+            </div>
+            <div ng-if="state === 'connected'">
+                Connected users: {{connectedUsers}}
+            </div>
+        </div>
+        <h2>Poll</h2>
+        <div ng-controller="PollController">
+            <div>
+                <label>
+                    Question:
+                    <input type="text" ng-model="pollData.question" ng-disabled="pollRunning">
+                </label>
+            </div>
+            <p>
+            <div>
+                Options:
+            </div>
+            <div ng-repeat="option in pollData.options">
+                <input type="text" ng-model="option.text" ng-disabled="pollRunning">
+                <span ng-if="pollRunning">
+                    {{option.count}} answers ({{(option.count / pollData.answers * 100 || 0) | number:0}} %)
+                </span>
+            </div>
+            <p>
+            <div>
+                <input type="button" value="Add option" ng-click="addOption()" ng-disabled="pollRunning">
+            <div>
+            <p>
+            <div>
+                <input type="button" value="Send" ng-click="sendPoll()" ng-disabled="!canSendPoll() || pollRunning">
+                <input type="button" value="Reset" ng-click="newPoll()" ng-disabled="!pollRunning">
+            </div>
+        </div>
+    </body>
+</html>

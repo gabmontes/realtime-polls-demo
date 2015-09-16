@@ -1,0 +1,6 @@
+{
+  "name": "socket-polls",
+  "dependencies": {
+    "angular": "~1.4.5"
+  }
+}
