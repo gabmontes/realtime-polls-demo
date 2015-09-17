@@ -70,10 +70,12 @@ app.controller("PollController", function ($scope, socketConnection) {
     });
 
     socketConnection.on("updated poll", $scope, function (pollData) {
-        if ($scope.pollData.answer === undefined) {
+        var userAnswer = $scope.pollData.answer;
+        if (userAnswer === undefined) {
             return;
         }
         $scope.pollData = pollData;
+        $scope.pollData.answer = userAnswer;
     });
 
     $scope.setAnswer = function (answer) {
