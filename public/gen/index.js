@@ -89,6 +89,8 @@ app.controller("PollController", function ($scope, socketConnection) {
         addEmptyOption();
     }
 
+    init();
+
     socketConnection.on("connect", $scope, function () {
         init();
     });
